@@ -12,7 +12,7 @@ root = lxml.html.fromstring(html)
 bylines = root.cssselect("span.story-author-name")
 
 for byline in bylines:
-    print lxml.html.tostring(byline).encode('utf-8') 
+    print lxml.html.tostring(byline).decode('utf-8') 
     print byline.text
     
 for byline in bylines:
