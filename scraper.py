@@ -5,13 +5,19 @@ import scraperwiki
 import lxml.html
 
 # Read in a page
-html = scraperwiki.scrape("http://foo.com")
+html = scraperwiki.scrape("http://www.lavanguardia.com/")
 
 # Find something on the page using css selectors
 root = lxml.html.fromstring(html)
-print html
-print root
-print root.cssselect("a")
+bylines = root.cssselect("span.story-author-name")
+
+for byline in bylines:
+    print lxml.html.tostring(byline) 
+    print byline.text
+    
+for byline in bylines:
+  record = { "byline" : byline.text } # column name and value
+  scraperwiki.sqlite.save(["byline"], record) # save the records one by one
 
 # # Write out to the sqlite database using scraperwiki library
 # scraperwiki.sqlite.save(unique_keys=['name'], data={"name": "susan", "occupation": "software developer"})
