@@ -11,25 +11,20 @@ html = scraperwiki.scrape("http://www.lavanguardia.com/")
 root = lxml.html.fromstring(html)
 bylines = root.cssselect("span.story-author-name")
 
-for byline in bylines:
-    print lxml.html.tostring(byline) 
-    print byline.text.encode('utf-8')
+# for byline in bylines:
+#     print lxml.html.tostring(byline) 
+#     print byline.text.encode('utf-8')
     
 for byline in bylines:
-  record = { "byline" : byline.text } # column name and value
+  record = { "byline" : byline.text.encode('utf-8') } # column name and value
+  scraperwiki.sqlite.save(["byline"], record) # save the records one by one
+
+for byline in bylines:
+  record = { "byline" : byline.text_content().encode('utf-8') } # column name and value
   scraperwiki.sqlite.save(["byline"], record) # save the records one by one
     
-# Find something on the page using css selectors
-root = lxml.html.fromstring(html)
-titles = root.cssselect("a.story-header-title-link")
+# titles = root.cssselect("a.story-header-title-link")
 
-for title in titles:
-    print lxml.html.tostring(title) 
-    print title.text.encode('utf-8')
-    
-for title in titles:
-  record = { "title" : title.text } # column name and value
-  scraperwiki.sqlite.save(["title"], record) # save the records one by one
 
 
 # # Write out to the sqlite database using scraperwiki library
