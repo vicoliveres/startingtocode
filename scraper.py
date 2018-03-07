@@ -21,7 +21,7 @@ for byline in bylines:
     
 # Find something on the page using css selectors
 root = lxml.html.fromstring(html)
-bylines = root.cssselect("a.story-header-title-link")
+titles = root.cssselect("a.story-header-title-link")
 
 for title in titles:
     print lxml.html.tostring(title) 
