@@ -13,7 +13,7 @@ bylines = root.cssselect("span.story-author-name")
 
 for byline in bylines:
     print lxml.html.tostring(byline) 
-    print byline.text.decode('utf-8')
+    print byline.text.encode('utf-8')
     
 for byline in bylines:
   record = { "byline" : byline.text } # column name and value
