@@ -9,7 +9,7 @@ html = scraperwiki.scrape("http://www.lavanguardia.com/")
 
 # Find something on the page using css selectors
 root = lxml.html.fromstring(html)
-bylines = root.cssselect("span.story-author-name")
+bylines = root.cssselect("span.story-author-name").encode('utf-8')
 
 for byline in bylines:
     print lxml.html.tostring(byline) 
