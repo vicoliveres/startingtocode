@@ -84,7 +84,7 @@ for article in articles:
 
 # El Mon
 
-with open(r'C:\Users\usuario\Documents\Diaris\ElMon.html', "r") as f:
+with open(r'C:/Users/usuario/Documents/Diaris/ElMon.html', "r") as f:
     page = f.read()
 root = html.fromstring(page)
 
