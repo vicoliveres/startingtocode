@@ -1,31 +1,116 @@
 # This is a template for a Python scraper on morph.io (https://morph.io)
 # including some code snippets below that you should find helpful
 
+#!/usr/bin/env python
 import scraperwiki
 import lxml.html
+import urlparse
 
-# Read in a page
+# La Vanguardia
 html = scraperwiki.scrape("http://www.lavanguardia.com/")
 
-# Find something on the page using css selectors
 root = lxml.html.fromstring(html)
-bylines = root.cssselect("span.story-author-name")
+articles = root.cssselect("span.story-author-name")
 
-# for byline in bylines:
-#     print lxml.html.tostring(byline) 
-#     print byline.text.encode('utf-8')
-    
-for byline in bylines:
-  record = { "byline" : byline.text.encode('utf-8') } # column name and value
-  scraperwiki.sqlite.save(["byline"], record) # save the records one by one
+for article in articles:
+    record = {}
+    record['Author'] = article.text
+    record['Media'] = "La Vanguardia"
 
-for byline in bylines:
-  record = { "byline" : byline.text_content().encode('utf-8') } # column name and value
-  scraperwiki.sqlite.save(["byline"], record) # save the records one by one
-    
-# titles = root.cssselect("a.story-header-title-link")
+    print record, '------------'
+
+    scraperwiki.sqlite.save(["Author"], record)
+
+# La Vanguardia titulars
+html = scraperwiki.scrape("http://www.lavanguardia.com/")
+
+root = lxml.html.fromstring(html)
+articles = root.cssselect("a.story-header-title-link")
+
+for article in articles:
+    record = {}
+    record['Author'] = article.text
+    record['Media'] = "La Vanguardia"
+
+    print record, '------------'
+
+    scraperwiki.sqlite.save(["Author"], record)
 
 
+# Ara.cat
+html = scraperwiki.scrape("https://www.ara.cat/")
+
+root = lxml.html.fromstring(html)
+articles = root.cssselect("span.byline")
+
+for article in articles:
+    record = {}
+    record['Author'] = article.text
+    record['Media'] = "Ara.cat"
+
+    print record, '------------'
+
+    scraperwiki.sqlite.save(["Author"], record)
+
+# Catalunya Plural
+html = scraperwiki.scrape("http://catalunyaplural.cat/ca")
+
+root = lxml.html.fromstring(html)
+articles = root.cssselect('a[href]')
+
+for article in articles:
+    record = {}
+    record['Author'] = article.text
+    record['Media'] = "Catalunya Plural"
+
+    print record, '------------'
+
+    scraperwiki.sqlite.save(["Author"], record)
+
+# Directa
+html = scraperwiki.scrape("https://directa.cat/")
+
+root = lxml.html.fromstring(html)
+articles = root.cssselect('a.autor')
+
+for article in articles:
+    record = {}
+    record['Author'] = article.text
+    record['Media'] = "Directa"
+
+    print record, '------------'
+
+    scraperwiki.sqlite.save(["Author"], record)
+
+# El Mon
+html = scraperwiki.scrape("file:///D:/TOT/M%C3%A0ster%20BCU/S2%20-%20Specialist%20journalism,%20investigations%20and%20coding/Scraping/Diaris/El%20M%C3%B3n%20-%20El%20diari%20lliure,%20obert%20i%20per%20compartir%207M.html")
+
+root = lxml.html.fromstring(html)
+articles = root.cssselect('span.author')
+
+for article in articles:
+    record = {}
+    record['Author'] = article.text
+    record['Media'] = "El Mon"
+
+    print record, '------------'
+
+    scraperwiki.sqlite.save(["Author"], record)
+
+# # Vilaweb - scraping links - FORBIDDEN
+# html = scraperwiki.scrape("https://www.vilaweb.cat/")
+
+# root = lxml.html.fromstring(html)
+# articles = root.cssselect("a[starts-with(@class, 'link-noticia')]")
+
+# for article in articles:
+#     record = {}
+#     record['Author'] = article.attrib['href']
+#     record['Media'] = "Vilaweb"
+
+#     print record, '------------'
+
+#     scraperwiki.sqlite.save(["Author"], record)
 
 # # Write out to the sqlite database using scraperwiki library
 # scraperwiki.sqlite.save(unique_keys=['name'], data={"name": "susan", "occupation": "software developer"})
