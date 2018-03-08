@@ -89,7 +89,7 @@ for article in articles:
 # root = html.fromstring(page)
 
 root = lxml.html.fromstring("C:/Users/usuario/Documents/Diaris/ElMon.html")
-articles = root.cssselect('span.author')
+articles = root.cssselect('span[starts-with(@class, 'author')]')
 
 for article in articles:
     record = {}
