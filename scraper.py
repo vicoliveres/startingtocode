@@ -84,11 +84,11 @@ for article in articles:
 
 # El Mon
 
-with open(r'C:/Users/usuario/Documents/Diaris/ElMon.html', "r") as f:
-    page = f.read()
-root = html.fromstring(page)
+# with open(r'C:/Users/usuario/Documents/Diaris/ElMon.html', "r") as f:
+#     page = f.read()
+# root = html.fromstring(page)
 
-# root = lxml.html.fromstring(html)
+root = lxml.html.fromstring("C:/Users/usuario/Documents/Diaris/ElMon.html")
 articles = root.cssselect('span.author')
 
 for article in articles:
