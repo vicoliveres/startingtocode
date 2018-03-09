@@ -100,20 +100,20 @@ for article in articles:
 
     scraperwiki.sqlite.save(["Author"], record)
 
-# # Vilaweb - scraping links - FORBIDDEN
-# html = scraperwiki.scrape("https://www.vilaweb.cat/")
+# Vilaweb - scraping links - FORBIDDEN
+html = scraperwiki.scrape("https://www.vilaweb.cat/")
 
-# root = lxml.html.fromstring(html)
-# articles = root.cssselect("a[starts-with(@class, 'link-noticia')]")
+root = lxml.html.fromstring(html)
+articles = root.cssselect("a[starts-with(@class, 'link-noticia')]")
 
-# for article in articles:
-#     record = {}
-#     record['Author'] = article.attrib['href']
-#     record['Media'] = "Vilaweb"
+for article in articles:
+    record = {}
+    record['Author'] = article.attrib['href']
+    record['Media'] = "Vilaweb"
 
-#     print record, '------------'
+    print record, '------------'
 
-#     scraperwiki.sqlite.save(["Author"], record)
+    scraperwiki.sqlite.save(["Author"], record)
 
 # # Write out to the sqlite database using scraperwiki library
 # scraperwiki.sqlite.save(unique_keys=['name'], data={"name": "susan", "occupation": "software developer"})
