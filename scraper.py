@@ -6,6 +6,23 @@ import scraperwiki
 import lxml.html
 import urlparse
 
+# La Vanguardia TOT
+html = scraperwiki.scrape("http://www.lavanguardia.com/")
+
+root = lxml.html.fromstring(html)
+articles = root.cssselect("div.story-bottom")
+
+for article in articles:
+    record = {}
+    record['Author'] = article.cssselect("span.story-author-name")[0].text
+    record['Title'] = article.cssselect("a.story-header-title-link")[0].text
+    record['Media'] = "La Vanguardia"
+
+    print record, '------------'
+
+    scraperwiki.sqlite.save(["Author"], record)
+
+
 # La Vanguardia
 html = scraperwiki.scrape("http://www.lavanguardia.com/")
 
